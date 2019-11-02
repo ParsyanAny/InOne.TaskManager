@@ -7,7 +7,7 @@ namespace InOne.TaskManager.Manager
     public interface IUserManager
     {
         void AddUser(User user);
-        void ChangeUser(string FirstName, string LastName, DateTime birthday, string password);
+        void ChangeUser(UserChange user);
         void DeleteUser(int Id);
         UserInfo GerUserInfo(int userId);
     }
