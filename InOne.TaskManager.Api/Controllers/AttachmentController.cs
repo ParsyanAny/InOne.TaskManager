@@ -10,11 +10,11 @@ namespace InOne.TaskManager.Api.Controllers
 {
     public class AttachmentController : BaseController
     {
-       
-        [HttpPost,Route("attachment")]
+
+        [HttpPost, Route("attachment")]
         public string UploadFile()
         {
-            const string FilesPath = "~/uploads/";
+            const string FilesPath = @"~\uploads\";
             bool exists = Directory.Exists(HttpContext.Current.Server.MapPath(FilesPath));
             if (!exists)
                 Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FilesPath));
@@ -22,10 +22,11 @@ namespace InOne.TaskManager.Api.Controllers
 
             if (file != null && file.ContentLength > 0)
             {
-                file.SaveAs(FilesPath + Path.GetFileName(file.FileName));
-                return FilesPath + file.FileName;
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(HttpContext.Current.Server.MapPath(FilesPath), fileName);
+                file.SaveAs(path + fileName);
             }
-            return null;
+            return file != null ? FilesPath + file.FileName : null;
         }
     }
 }
