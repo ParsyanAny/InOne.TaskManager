@@ -1,10 +1,11 @@
 ﻿using InOne.TaskManager.Entities;
+using InOne.TaskManager.Models;
+using InOne.TaskManager.Models.OtherModels;
 
 namespace InOne.TaskManager.Manager
 {
-    public interface IAttachmentManager
+    public interface IAttachmentManager : IBaseManager<Attachment, AttachmentModel>
     {
-        void AddAttachment(Attachment attachment);
-        void AddAttachment(string name, string location);
+        void AddAttachment(AttachmentAdd attachmentAdd);
     }
 }

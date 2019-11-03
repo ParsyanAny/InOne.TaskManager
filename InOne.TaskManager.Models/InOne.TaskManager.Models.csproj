@@ -49,7 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachmentModel.cs" />
+    <Compile Include="OtherModels\AttachmentAdd.cs" />
+    <Compile Include="OtherModels\TaskAdd.cs" />
+    <Compile Include="OtherModels\TaskChange.cs" />
     <Compile Include="OtherModels\TaskInfo.cs" />
+    <Compile Include="OtherModels\UserAdd.cs" />
     <Compile Include="OtherModels\UserChange.cs" />
     <Compile Include="OtherModels\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

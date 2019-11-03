@@ -1,21 +1,31 @@
-﻿using InOne.TaskManager.Entities;
+﻿using InOne.TaskManager.Models.OtherModels;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace InOne.TaskManager.Api.Controllers
 {
     public class AttachmentController : BaseController
     {
-        [HttpPost, Route("attachment")]
-        public IHttpActionResult PostAttachment(Attachment attachment)
+       
+        [HttpPost,Route("attachment")]
+        public string UploadFile()
         {
-            UnitOfWork.AttachmentManager.AddAttachment(attachment);
-            UnitOfWork.Commit();
-            return Json("Success");
+            const string FilesPath = "~/uploads/";
+            bool exists = Directory.Exists(HttpContext.Current.Server.MapPath(FilesPath));
+            if (!exists)
+                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FilesPath));
+            var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
+
+            if (file != null && file.ContentLength > 0)
+            {
+                file.SaveAs(FilesPath + Path.GetFileName(file.FileName));
+                return FilesPath + file.FileName;
+            }
+            return null;
         }
     }
 }

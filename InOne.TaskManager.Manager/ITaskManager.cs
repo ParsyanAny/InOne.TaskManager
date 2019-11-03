@@ -1,15 +1,17 @@
 ﻿using InOne.TaskManager.Entities;
+using InOne.TaskManager.Models;
 using InOne.TaskManager.Models.OtherModels;
 using System.Collections.Generic;
 
 namespace InOne.TaskManager.Manager
 {
-    public interface ITaskManager
+    public interface ITaskManager : IBaseManager<Task, TaskModel>
     {
-        void AddTask(Task task);
-        void ChangeTask(string name, string description, int assignedId, int taskId);
+        void AddTask(TaskAdd task);
+        void ChangeTask(TaskChange task);
+        void ChangeSaveLogTask(TaskChange task);
         void ChangeStatus(int taskId, int userId, int statusId);
-        void DeleteTask(int Id);
+        void ChangeSaveLogStatus(int taskId, int userId, int statusId);
         List<TaskInfo> GetTask(int userId); 
     }
 }

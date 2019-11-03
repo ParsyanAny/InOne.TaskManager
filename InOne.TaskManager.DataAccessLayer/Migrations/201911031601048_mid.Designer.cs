@@ -7,13 +7,13 @@ namespace InOne.TaskManager.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class FirstMigarion : IMigrationMetadata
+    public sealed partial class mid : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(FirstMigarion));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mid));
         
         string IMigrationMetadata.Id
         {
-            get { return "201911020827160_FirstMigarion"; }
+            get { return "201911031601048_mid"; }
         }
         
         string IMigrationMetadata.Source

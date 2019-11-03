@@ -1,41 +1,38 @@
 ﻿using InOne.TaskManager.Entities;
 using InOne.TaskManager.Models.OtherModels;
+using System.Net;
 using System.Web.Http;
 
 namespace InOne.TaskManager.Api.Controllers
 {
     public class UserController : BaseController
     {
-
         [BasicAuthentication]
         [HttpGet, Route("userinfo")]
         public IHttpActionResult GetUserInfo()
             => Json(UnitOfWork.UserManager.GerUserInfo(AuthHelper.Id));
-
         [HttpPost, Route("user")]
-        public IHttpActionResult PostUser([FromBody]User user)
+        public IHttpActionResult PostUser([FromBody]UserAdd user)
         {
             UnitOfWork.UserManager.AddUser(user);
             UnitOfWork.Commit();
-            return Json("Success");
+            return Ok(HttpStatusCode.Created);
         }
         [BasicAuthentication]
         [HttpPut, Route("user")]
         public IHttpActionResult PutUser(UserChange user)
         {
-            var create = _context.Users.Find(user.Id).RegistrationDate;
-            Logging.WriteLog($" Changed Id {user.Id} RegistrationDate{create}");
-            UnitOfWork.UserManager.ChangeUser(user);
+            UnitOfWork.UserManager.ChangeUserSaveLog(user, AuthHelper.Id);
             UnitOfWork.Commit();
-            return Json("Success");
+            return Ok(HttpStatusCode.Accepted);
         }
         [BasicAuthentication]
         [HttpPut, Route("deleteuser")]
         public IHttpActionResult PutUser()
         {
-            UnitOfWork.UserManager.DeleteUser(AuthHelper.Id);
+            UnitOfWork.UserManager.DeleteSaveLog(AuthHelper.Id);
             UnitOfWork.Commit();
-            return Json("Success");
+            return Ok(HttpStatusCode.OK);
         }
     }
 }

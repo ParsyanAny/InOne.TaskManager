@@ -11,10 +11,17 @@ namespace InOne.TaskManager.Manager.IMPL
     {
         public UserManager(ApplicationContext context) : base(context) { }
 
-        public void AddUser(User user) => _context.Users.Add(user);
-        public void ChangeUser(UserChange user)
+        public void AddUser(UserAdd model)
         {
-            var result = _context.Users.Find(user.Id);
+            if (CheckUserName(model.UserName))
+                throw new Exception("Please enter another UserName");
+            User user = addModelToUser(model);
+            Add(user);
+        }
+
+        public void ChangeUser(UserChange user, int userId)
+        {
+            var result = GetEntity(userId);
             if (result != null)
             {
                 result.FirstName = user.FirstName;
@@ -23,19 +30,22 @@ namespace InOne.TaskManager.Manager.IMPL
                 result.Password = user.Password;
             }
         }
+        public void ChangeUserSaveLog(UserChange user, int userId)
+        {
+            ChangeUser(user, userId);
+            _context.SaveChanges();
+            Logger(userId);
 
-        public void DeleteUser(int Id) => _context.Users.Find(Id).Deleted = true;
-
+        }
         public UserInfo GerUserInfo(int userId)
         {
-            var currentUser = _context.Users.Find(userId);
+            var currentUser = GetEntity(userId);
             var res = from task in _context.Tasks
                       join user in _context.Users.Where(p => p.Id == userId) on task.AssignedId equals user.Id
-                      //group task by user into Tasks
                       select new TaskInfo
                       {
                           TaskName = task.Title,
-                          StatusId = task.StatusId,
+                          StatusId = task.Status,
                           CreateDate = task.CreateDate,
                           Description = task.Description,
                           ExpireDate = task.ExpirationDate,
@@ -53,6 +63,9 @@ namespace InOne.TaskManager.Manager.IMPL
                 TaskInfos = res.ToList()
             };
         }
+
+        private bool CheckUserName(string userName)
+           => _context.Users.Where(p => p.UserName == userName).FirstOrDefault() != null;
         #region UserModel -> User, User -> UserModel
         public override UserModel EntityToModel(User entity)
             => new UserModel
@@ -63,7 +76,7 @@ namespace InOne.TaskManager.Manager.IMPL
                 BirthDay = entity.BirthDay,
                 Deleted = entity.Deleted,
                 RegistrationDate = entity.RegistrationDate,
-                GenderId = entity.GenderId
+                GenderId = entity.Gender
             };
         public override User ModelToEntity(UserModel model)
             => new User
@@ -74,8 +87,20 @@ namespace InOne.TaskManager.Manager.IMPL
                 BirthDay = model.BirthDay,
                 Deleted = model.Deleted,
                 RegistrationDate = model.RegistrationDate,
-                GenderId = model.GenderId,
+                Gender = model.GenderId,
 
+            };
+        private User addModelToUser(UserAdd model)
+            => new User
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                UserName = model.UserName,
+                Password = model.Password,
+                BirthDay = model.BirthDay,
+                Deleted = false,
+                Gender = model.Gender,
+                RegistrationDate = DateTime.Now
             };
         #endregion
     }

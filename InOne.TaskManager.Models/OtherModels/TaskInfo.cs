@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using static InOne.TaskManager.Entities.Enums;
 
 namespace InOne.TaskManager.Models.OtherModels
 {
@@ -14,6 +15,6 @@ namespace InOne.TaskManager.Models.OtherModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ExpireDate { get; set; }
         public int AttachmentCount { get; set; }
-        public int StatusId { get; set; }
+        public Status StatusId { get; set; }
     }
 }

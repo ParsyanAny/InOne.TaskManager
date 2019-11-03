@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using static InOne.TaskManager.Entities.Enums;
 
 namespace InOne.TaskManager.Models
 {
@@ -10,7 +11,7 @@ namespace InOne.TaskManager.Models
         public string FirstName { get; set; }
         [Required, MaxLength(75)]
         public string LastName { get; set; }
-        public int GenderId { get; set; }
+        public Gender GenderId { get; set; }
         public bool Deleted { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]

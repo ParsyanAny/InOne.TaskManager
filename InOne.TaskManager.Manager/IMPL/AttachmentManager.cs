@@ -1,6 +1,8 @@
 ﻿using InOne.TaskManager.DataAccessLayer;
 using InOne.TaskManager.Entities;
 using InOne.TaskManager.Models;
+using InOne.TaskManager.Models.OtherModels;
+using System;
 
 namespace InOne.TaskManager.Manager.IMPL
 {
@@ -8,11 +10,7 @@ namespace InOne.TaskManager.Manager.IMPL
     {
         public AttachmentManager(ApplicationContext context) : base(context) { }
 
-
-        public void AddAttachment(Attachment attachment) => _context.Attachments.Add(attachment);
-        public void AddAttachment(string name, string location)
-            => _context.Attachments.Add(new Attachment {  Location = location, Name = name});
-
+        public void AddAttachment(AttachmentAdd attachment) => Add(addModelToAttachment(attachment));
 
         #region Attachment -> AttachmentModel, AttachmentModel -> Attachment
         public override AttachmentModel EntityToModel(Attachment entity)
@@ -28,6 +26,13 @@ namespace InOne.TaskManager.Manager.IMPL
                 Id = model.Id,
                 Location = model.Location,
                 Name = model.Name
+            };
+        private Attachment addModelToAttachment(AttachmentAdd attachmentAdd)
+            => new Attachment
+            {
+                Name = attachmentAdd.Name,
+                Location = attachmentAdd.Location,
+                CreateDate = DateTime.Now
             };
         #endregion
     }

@@ -35,10 +35,7 @@ namespace InOne.Reservation.Manager.IMPL
             return (TRepository)repositories[type.Name];
         }
 
-        public void Commit()
-        {
-            _context.SaveChanges();
-        }
+        public void Commit() => _context.SaveChanges();
         public void RejectChanges()
         {
             foreach (var entry in _context.ChangeTracker.Entries()

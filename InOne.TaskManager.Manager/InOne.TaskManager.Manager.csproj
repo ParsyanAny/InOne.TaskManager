@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAttachmentManager.cs" />
-    <Compile Include="IEnumerabel.cs" />
+    <Compile Include="IBaseManager.cs" />
     <Compile Include="IMPL\AttachmentManager.cs" />
     <Compile Include="IMPL\BaseManager.cs" />
     <Compile Include="IMPL\TasksManager.cs" />

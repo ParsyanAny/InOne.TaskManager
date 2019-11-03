@@ -49,21 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Migrations\201911020827160_FirstMigarion.cs" />
-    <Compile Include="Migrations\201911020827160_FirstMigarion.Designer.cs">
-      <DependentUpon>201911020827160_FirstMigarion.cs</DependentUpon>
+    <Compile Include="Migrations\201911031057265_ad.cs" />
+    <Compile Include="Migrations\201911031057265_ad.Designer.cs">
+      <DependentUpon>201911031057265_ad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911020845542_second.cs" />
-    <Compile Include="Migrations\201911020845542_second.Designer.cs">
-      <DependentUpon>201911020845542_second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911020927257_datetimeChanges.cs" />
-    <Compile Include="Migrations\201911020927257_datetimeChanges.Designer.cs">
-      <DependentUpon>201911020927257_datetimeChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911021017052_mig.cs" />
-    <Compile Include="Migrations\201911021017052_mig.Designer.cs">
-      <DependentUpon>201911021017052_mig.cs</DependentUpon>
+    <Compile Include="Migrations\201911031601048_mid.cs" />
+    <Compile Include="Migrations\201911031601048_mid.Designer.cs">
+      <DependentUpon>201911031601048_mid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,17 +71,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911020827160_FirstMigarion.resx">
-      <DependentUpon>201911020827160_FirstMigarion.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911031057265_ad.resx">
+      <DependentUpon>201911031057265_ad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911020845542_second.resx">
-      <DependentUpon>201911020845542_second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911020927257_datetimeChanges.resx">
-      <DependentUpon>201911020927257_datetimeChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911021017052_mig.resx">
-      <DependentUpon>201911021017052_mig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911031601048_mid.resx">
+      <DependentUpon>201911031601048_mid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
