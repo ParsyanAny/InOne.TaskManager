@@ -2,6 +2,9 @@
 using InOne.TaskManager.DataAccessLayer;
 using System;
 using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -30,8 +33,22 @@ namespace InOne.TaskManager.Api.Controllers
             }
             return file != null ? new string[] { FilesPath, file.FileName } : null;
         }
+        public HttpResponseMessage GetUserTasksInfoFile()
+        {
+            string[] ecx = toExcel(AuthHelper.Id);
+            string fileName = ecx[1] + ".xlsx";
+            string localFilePath = ecx[0] + fileName;
 
-        public  void ToExcel(int userId)
+            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(new FileStream(localFilePath, FileMode.Open, FileAccess.Read));
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue(fileName);
+            response.Content.Headers.ContentDisposition.FileName = fileName;
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            return response;
+        }
+
+
+        private string[] toExcel(int userId)
         {
 
             var tasks = UnitOfWork.TaskManager.GetTasks(userId);
@@ -67,7 +84,7 @@ namespace InOne.TaskManager.Api.Controllers
             }
 
             const string FilesPath = @"~\excel\";
-            string fileName = user.FirstName + DateTime.Now.Minute.ToString()+ user.LastName + DateTime.Now.Second;
+            string fileName = user.FirstName + DateTime.Now.Minute.ToString() + user.LastName + DateTime.Now.Second;
             bool exists = Directory.Exists(HttpContext.Current.Server.MapPath(FilesPath));
             if (!exists)
                 Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FilesPath));
@@ -76,6 +93,7 @@ namespace InOne.TaskManager.Api.Controllers
             workbook.SaveAs(path + fileName);
             workbook.Close();
             excel.Quit();
+            return new string[] { path, fileName };
         }
     }
 }
