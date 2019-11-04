@@ -67,12 +67,12 @@ namespace InOne.TaskManager.Manager.IMPL
                     AssignedLastName = creator.LastName,
                     AttachmentCount = _context.Attachments.Where(p=> p.TaskId == item.Id).Count(),
                     Description = item.Description,
-                    StatusId = item.Status
-                });
+                    Status = (Enum.GetName(typeof(Status), item.Status))
+            });
             }
             return result;
         }
-
+        
         #region TaskModel -> Task, Task -> TaskModel
         public override Task ModelToEntity(TaskModel model)
             => new Task
@@ -86,7 +86,6 @@ namespace InOne.TaskManager.Manager.IMPL
                 Deleted = model.Deleted,
                 CreateDate = model.CreateDate,
                 ExpirationDate = model.ExpirationDate,
-                //AttachmentIds = model.AttachmentIds
             };
         public override TaskModel EntityToModel(Task entity)
             => new TaskModel

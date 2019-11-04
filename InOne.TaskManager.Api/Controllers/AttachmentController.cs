@@ -14,7 +14,8 @@ namespace InOne.TaskManager.Api.Controllers
         [HttpPost, Route("attachment")]
         public IHttpActionResult PostAttachment(int taskId)
         {
-            string[] file = Uploader.UploadFile();
+            
+            string[] file = UploadFile();
             UnitOfWork.AttachmentManager.AddAttachment(new AttachmentAdd {  Location = file[0], Name = file[1], TaskId = taskId});
             UnitOfWork.Commit();
             return Ok(HttpStatusCode.Created);

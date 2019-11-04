@@ -5,6 +5,7 @@ using InOne.TaskManager.DataAccessLayer;
 using InOne.TaskManager.Entities;
 using InOne.TaskManager.Models;
 using InOne.TaskManager.Models.OtherModels;
+using static InOne.TaskManager.Entities.Enums;
 
 namespace InOne.TaskManager.Manager.IMPL
 {
@@ -70,7 +71,7 @@ namespace InOne.TaskManager.Manager.IMPL
                     AssignedLastName = creator.LastName,
                     AttachmentCount = _context.Attachments.Where(p => p.TaskId == item.Id).Count(),
                     Description = item.Description,
-                    StatusId = item.Status
+                    Status = (Enum.GetName(typeof(Status), item.Status))
                 });
             }
             return result;

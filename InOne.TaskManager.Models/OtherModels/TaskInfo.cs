@@ -15,6 +15,6 @@ namespace InOne.TaskManager.Models.OtherModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime ExpireDate { get; set; }
         public int AttachmentCount { get; set; }
-        public Status StatusId { get; set; }
+        public string Status { get; set; }
     }
 }
