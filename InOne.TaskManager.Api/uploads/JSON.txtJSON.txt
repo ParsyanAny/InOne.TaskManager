@@ -1,0 +1,10 @@
+{
+	"FirstName" : "Draco",
+	"LastName" : "Malfoy",
+	"UserName" : "draco",
+	"Password" : "malfoy",
+	"Deleted" : false,
+	"BirthDay" : "1996-10-10",
+	"RegistrationDate" : "2019-11-11",
+	"Gender": 1
+}

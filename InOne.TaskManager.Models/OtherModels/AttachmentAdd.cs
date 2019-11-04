@@ -8,5 +8,6 @@ namespace InOne.TaskManager.Models.OtherModels
         public string Name { get; set; }
         [Required, MaxLength(200)]
         public string Location { get; set; }
+        public int TaskId { get; set; }
     }
 }

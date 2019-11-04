@@ -49,13 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Migrations\201911031057265_ad.cs" />
-    <Compile Include="Migrations\201911031057265_ad.Designer.cs">
-      <DependentUpon>201911031057265_ad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911031601048_mid.cs" />
-    <Compile Include="Migrations\201911031601048_mid.Designer.cs">
-      <DependentUpon>201911031601048_mid.cs</DependentUpon>
+    <Compile Include="Migrations\201911040749098_firstMigration.cs" />
+    <Compile Include="Migrations\201911040749098_firstMigration.Designer.cs">
+      <DependentUpon>201911040749098_firstMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,11 +67,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911031057265_ad.resx">
-      <DependentUpon>201911031057265_ad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911031601048_mid.resx">
-      <DependentUpon>201911031601048_mid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911040749098_firstMigration.resx">
+      <DependentUpon>201911040749098_firstMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

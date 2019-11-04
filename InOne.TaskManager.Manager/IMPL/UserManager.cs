@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using InOne.TaskManager.DataAccessLayer;
 using InOne.TaskManager.Entities;
@@ -40,20 +41,7 @@ namespace InOne.TaskManager.Manager.IMPL
         public UserInfo GerUserInfo(int userId)
         {
             var currentUser = GetEntity(userId);
-            var res = from task in _context.Tasks
-                      join user in _context.Users.Where(p => p.Id == userId) on task.AssignedId equals user.Id
-                      select new TaskInfo
-                      {
-                          TaskName = task.Title,
-                          StatusId = task.Status,
-                          CreateDate = task.CreateDate,
-                          Description = task.Description,
-                          ExpireDate = task.ExpirationDate,
-                          AttachmentCount = 1,
-                          AssignedFirstName = user.FirstName,
-                          AssignedLastName = user.LastName
-
-                      };
+            var res = GetTasks(userId);
             return new UserInfo
             {
                 FirstName = currentUser.FirstName,
@@ -66,6 +54,28 @@ namespace InOne.TaskManager.Manager.IMPL
 
         private bool CheckUserName(string userName)
            => _context.Users.Where(p => p.UserName == userName).FirstOrDefault() != null;
+        private List<TaskInfo> GetTasks(int userId)
+        {
+            User creator = _context.Users.Find(userId);
+            var tasks = _context.Tasks.Where(p => p.CreatorId == userId).ToList();
+            var result = new List<TaskInfo>();
+            foreach (var item in tasks)
+            {
+                result.Add(new TaskInfo
+                {
+                    TaskName = item.Title,
+                    ExpireDate = item.ExpirationDate,
+                    CreateDate = item.CreateDate,
+                    AssignedFirstName = creator.FirstName,
+                    AssignedLastName = creator.LastName,
+                    AttachmentCount = _context.Attachments.Where(p => p.TaskId == item.Id).Count(),
+                    Description = item.Description,
+                    StatusId = item.Status
+                });
+            }
+            return result;
+        }
+
         #region UserModel -> User, User -> UserModel
         public override UserModel EntityToModel(User entity)
             => new UserModel

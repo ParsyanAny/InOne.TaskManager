@@ -12,21 +12,12 @@ namespace InOne.TaskManager.Api.Controllers
     {
 
         [HttpPost, Route("attachment")]
-        public string UploadFile()
+        public IHttpActionResult PostAttachment(int taskId)
         {
-            const string FilesPath = @"~\uploads\";
-            bool exists = Directory.Exists(HttpContext.Current.Server.MapPath(FilesPath));
-            if (!exists)
-                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(FilesPath));
-            var file = HttpContext.Current.Request.Files.Count > 0 ? HttpContext.Current.Request.Files[0] : null;
-
-            if (file != null && file.ContentLength > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(HttpContext.Current.Server.MapPath(FilesPath), fileName);
-                file.SaveAs(path + fileName);
-            }
-            return file != null ? FilesPath + file.FileName : null;
+            string[] file = Uploader.UploadFile();
+            UnitOfWork.AttachmentManager.AddAttachment(new AttachmentAdd {  Location = file[0], Name = file[1], TaskId = taskId});
+            UnitOfWork.Commit();
+            return Ok(HttpStatusCode.Created);
         }
     }
 }

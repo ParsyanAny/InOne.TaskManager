@@ -8,5 +8,6 @@ namespace InOne.TaskManager.Models
         public string Name { get; set; }
         public string Location { get; set; }
         public DateTime CreateDate { get; set; }
+        public int TaskId { get; set; }
     }
 }

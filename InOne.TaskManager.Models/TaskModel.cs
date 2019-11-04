@@ -20,6 +20,5 @@ namespace InOne.TaskManager.Models
         [Required]
         public string Description { get; set; }
         public bool Deleted { get; set; }
-        public IEnumerable<int> AttachmentIds { get; set; }
     }
 }

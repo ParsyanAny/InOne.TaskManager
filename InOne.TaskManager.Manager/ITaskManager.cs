@@ -12,6 +12,6 @@ namespace InOne.TaskManager.Manager
         void ChangeSaveLogTask(TaskChange task);
         void ChangeStatus(int taskId, int userId, int statusId);
         void ChangeSaveLogStatus(int taskId, int userId, int statusId);
-        List<TaskInfo> GetTask(int userId); 
+        List<TaskInfo> GetTasks(int userId); 
     }
 }

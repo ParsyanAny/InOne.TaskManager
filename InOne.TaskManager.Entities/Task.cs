@@ -20,11 +20,11 @@ namespace InOne.TaskManager.Entities
         public string Title { get; set; }
         public bool Deleted { get; set; }
         public string Description { get; set; }
-        [ForeignKey("Attachments")]
-        public IEnumerable<int> AttachmentIds { get; set; }
+        //[ForeignKey("Attachments")]
+        //public IEnumerable<int> AttachmentIds { get; set; }
         public User Creator { get; set; }
         public User Assigned { get; set; }
-        public IEnumerable<Attachment> Attachments { get; set; }
+        //public IEnumerable<Attachment> Attachments { get; set; }
         public Status Status { get; set; }
     }
 }

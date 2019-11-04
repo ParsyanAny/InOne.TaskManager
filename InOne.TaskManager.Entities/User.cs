@@ -20,8 +20,6 @@ namespace InOne.TaskManager.Entities
         public DateTime BirthDay { get; set; }
         [Required]
         public DateTime RegistrationDate { get; set; }
-        //[ForeignKey("Gender")]
-        //public int GenderId { get; set; }
         public Gender Gender { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using InOne.Reservation.Manager.IMPL;
-using InOne.TaskManager.Entities;
 using InOne.TaskManager.Models.OtherModels;
 using System.Net;
 using System.Web.Http;
@@ -10,11 +9,16 @@ namespace InOne.TaskManager.Api.Controllers
     public class TaskController : BaseController
     {
         [HttpGet, Route("task")]
-        public IHttpActionResult GetTasks(int userId) => Json(UnitOfWork.TaskManager.GetTask(userId));
+        public IHttpActionResult GetTasks()
+        {
+            Uploader.ToExcel(AuthHelper.Id); 
+           return  Json(UnitOfWork.TaskManager.GetTasks(AuthHelper.Id));
+        }
 
         [HttpPost, Route("task")]
         public IHttpActionResult PostUser(TaskAdd task)
         {
+            task.CreatorId = AuthHelper.Id;
             UnitOfWork.TaskManager.AddTask(task);
             UnitOfWork.Commit();
             return Ok(HttpStatusCode.Created);

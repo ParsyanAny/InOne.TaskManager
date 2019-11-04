@@ -18,21 +18,26 @@ namespace InOne.TaskManager.Manager.IMPL
             {
                 Id = entity.Id,
                 Location = entity.Location,
-                Name = entity.Name
+                Name = entity.Name,
+                CreateDate = entity.CreateDate,
+                TaskId = entity.TaskId
             };
         public override Attachment ModelToEntity(AttachmentModel model)
             => new Attachment
             {
                 Id = model.Id,
                 Location = model.Location,
-                Name = model.Name
+                Name = model.Name,
+                CreateDate = model.CreateDate,
+                TaskId = model.TaskId
             };
         private Attachment addModelToAttachment(AttachmentAdd attachmentAdd)
             => new Attachment
             {
                 Name = attachmentAdd.Name,
                 Location = attachmentAdd.Location,
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                TaskId = attachmentAdd.TaskId
             };
         #endregion
     }

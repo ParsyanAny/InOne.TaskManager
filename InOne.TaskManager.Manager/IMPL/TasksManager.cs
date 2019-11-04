@@ -51,7 +51,7 @@ namespace InOne.TaskManager.Manager.IMPL
             Logger(taskId);
         }
 
-        public List<TaskInfo> GetTask(int userId)
+        public List<TaskInfo> GetTasks(int userId)
         {
             User creator = _context.Users.Find(userId);
             var tasks = _context.Tasks.Where(p => p.CreatorId == userId).ToList();
@@ -65,7 +65,7 @@ namespace InOne.TaskManager.Manager.IMPL
                     CreateDate = item.CreateDate,
                     AssignedFirstName = creator.FirstName,
                     AssignedLastName = creator.LastName,
-                    AttachmentCount = item.AttachmentIds.Count(),
+                    AttachmentCount = _context.Attachments.Where(p=> p.TaskId == item.Id).Count(),
                     Description = item.Description,
                     StatusId = item.Status
                 });
@@ -86,7 +86,7 @@ namespace InOne.TaskManager.Manager.IMPL
                 Deleted = model.Deleted,
                 CreateDate = model.CreateDate,
                 ExpirationDate = model.ExpirationDate,
-                AttachmentIds = model.AttachmentIds
+                //AttachmentIds = model.AttachmentIds
             };
         public override TaskModel EntityToModel(Task entity)
             => new TaskModel
@@ -99,8 +99,7 @@ namespace InOne.TaskManager.Manager.IMPL
                 Description = entity.Description,
                 Deleted = entity.Deleted,
                 CreateDate = entity.CreateDate,
-                ExpirationDate = entity.ExpirationDate,
-                AttachmentIds = entity.AttachmentIds
+                ExpirationDate = entity.ExpirationDate
             };
         private Task addTaskToEntity(TaskAdd taskAdd)
             => new Task
@@ -113,7 +112,6 @@ namespace InOne.TaskManager.Manager.IMPL
                 Status = Status.Open,
                 Deleted = false,
                 ExpirationDate = taskAdd.ExpirationDate,
-                AttachmentIds = taskAdd.AttachmentIds
             };
         #endregion
     }

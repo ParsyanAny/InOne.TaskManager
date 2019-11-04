@@ -3,7 +3,7 @@ namespace InOne.TaskManager.DataAccessLayer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ad : DbMigration
+    public partial class firstMigration : DbMigration
     {
         public override void Up()
         {
@@ -15,8 +15,11 @@ namespace InOne.TaskManager.DataAccessLayer.Migrations
                         Name = c.String(nullable: false, maxLength: 50),
                         Location = c.String(nullable: false, maxLength: 200),
                         CreateDate = c.DateTime(nullable: false),
+                        TaskId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Tasks", t => t.TaskId, cascadeDelete: true)
+                .Index(t => t.TaskId);
             
             CreateTable(
                 "dbo.Tasks",
@@ -58,10 +61,12 @@ namespace InOne.TaskManager.DataAccessLayer.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.Attachments", "TaskId", "dbo.Tasks");
             DropForeignKey("dbo.Tasks", "CreatorId", "dbo.Users");
             DropForeignKey("dbo.Tasks", "AssignedId", "dbo.Users");
             DropIndex("dbo.Tasks", new[] { "AssignedId" });
             DropIndex("dbo.Tasks", new[] { "CreatorId" });
+            DropIndex("dbo.Attachments", new[] { "TaskId" });
             DropTable("dbo.Users");
             DropTable("dbo.Tasks");
             DropTable("dbo.Attachments");
