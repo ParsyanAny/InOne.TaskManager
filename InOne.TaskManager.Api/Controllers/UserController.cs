@@ -1,5 +1,4 @@
-﻿using InOne.TaskManager.Entities;
-using InOne.TaskManager.Models.OtherModels;
+﻿using InOne.TaskManager.Models.OtherModels;
 using System.Net;
 using System.Web.Http;
 

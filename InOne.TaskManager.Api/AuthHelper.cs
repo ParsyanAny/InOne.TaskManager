@@ -12,9 +12,7 @@ namespace InOne.TaskManager.Api
             ApplicationContext context = new ApplicationContext();
             User currentUser = context.Users.Where(p => p.UserName == userName && p.Password == password).FirstOrDefault();
             if (currentUser != null)
-            {
                 Id = currentUser.Id;
-            }
             return false;
         }
     }

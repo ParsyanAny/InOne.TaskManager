@@ -1,11 +1,7 @@
 ﻿using InOne.Reservation.Manager.IMPL;
 using InOne.TaskManager.Models.OtherModels;
-using System;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace InOne.TaskManager.Api.Controllers
@@ -44,6 +40,5 @@ namespace InOne.TaskManager.Api.Controllers
             UnitOfWork.TaskManager.ChangeSaveLogTask(task);
             return Ok(HttpStatusCode.Accepted);
         }
-
     }
 }

@@ -16,7 +16,6 @@ namespace InOne.TaskManager.Api.Controllers
         protected ApplicationContext _context = new ApplicationContext();
         protected UnitOfWork UnitOfWork => new UnitOfWork(_context);
 
-
         public string[] UploadFile()
         {
             const string FilesPath = @"~\uploads\";
@@ -47,17 +46,15 @@ namespace InOne.TaskManager.Api.Controllers
             return response;
         }
 
-
         private string[] toExcel(int userId)
         {
-
             var tasks = UnitOfWork.TaskManager.GetTasks(userId);
             var user = UnitOfWork.UserManager.GetEntity(userId);
 
             Excel.Application excel = new Excel.Application();
             Excel.Workbook workbook = excel.Workbooks.Add(Type.Missing);
-
             Excel.Worksheet sheet = (Excel.Worksheet)workbook.ActiveSheet;
+            
             sheet.Cells[1, 1].Value = "Title";
             sheet.Cells[1, 2].Value = "Description";
             sheet.Cells[1, 3].Value = "FName";
@@ -82,6 +79,9 @@ namespace InOne.TaskManager.Api.Controllers
                 count2 = 1;
                 count1++;
             }
+
+            sheet.Columns.AutoFit();
+            sheet.Rows.AutoFit();
 
             const string FilesPath = @"~\excel\";
             string fileName = user.FirstName + DateTime.Now.Minute.ToString() + user.LastName + DateTime.Now.Second;

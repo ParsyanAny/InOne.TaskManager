@@ -25,6 +25,7 @@ namespace InOne.TaskManager.Api
                 string[] usernamePasswordArray = decodedAuthenticationToken.Split(':');
                 string username = usernamePasswordArray[0];
                 string password = usernamePasswordArray[1];
+
                 if (AuthHelper.Search(username, password))
                 {
                     actionContext.Response = actionContext.Request
